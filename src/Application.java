@@ -29,19 +29,20 @@ class Product {
         return stockQuantity;
     }
 
-    public void restock() {
-        System.out.println("Uzupełniono zapasy");
+    public void restock(int amount) {
+        System.out.println("\nUzupełniono zapasy");
+        stockQuantity += amount;
     }
-    public void sell() {
-        if(stockQuantity <= 0) {
-            System.out.println("Nie ma wystarczającej liczby produktów");
+    public void sell(int amount) {
+        if(stockQuantity <= amount) {
+            System.out.println("\nNie ma wystarczającej liczby produktów");
         }
         else {
-            System.out.println("Sprzedaż udana");
+            System.out.println("\nSprzedaż udana");
+            stockQuantity -= amount;
         }
     }
 }
-
 class InventoryManager extends Product {
     private String department;
     private int managedProductsCount;
@@ -60,7 +61,7 @@ class InventoryManager extends Product {
     }
     public void logOut() {
         isLoggedIn = false;
-        System.out.println("Wylogowano");
+        System.out.println("\nWylogowano");
     }
     public void assignProduct() {
         System.out.println("\nPrzypisano nowy produkt");
@@ -86,5 +87,9 @@ public class Application {
         manager.logIn();
         manager.assignProduct();
         manager.viewReports();
+        manager.sell(11);
+        manager.restock(90);
+        manager.viewReports();
+        manager.logOut();
     }
 }
